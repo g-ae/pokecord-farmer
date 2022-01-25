@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const Pokemon = require('pokemon.js')
 const { send } = require('./useractions')
 const PokecordId = 705016654341472327
+const config = require("./config.json")
 const client = new Discord.Client({
     intents: [
         Discord.Intents.FLAGS.GUILDS, 
@@ -10,7 +11,6 @@ const client = new Discord.Client({
         Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS
     ]
 })
-require('dotenv').config()
 
 client.on('ready', () => {
     client.user.setActivity('Pokémon', { type: 'WATCHING' });
@@ -28,7 +28,7 @@ client.on('messageCreate', (message) => {
             const pokemonId = imageUrl.substring(0, imageUrl.length - 4)
             
             Pokemon.getPokemon(pokemonId).then(r => {
-                send(r.name, message.channel.id)
+                send(r.name)
             })
         /*} else {
             console.log('no wild pokemon')
@@ -39,4 +39,4 @@ client.on('messageCreate', (message) => {
     }
 })
 
-client.login(process.env.tokenBot)
+client.login(config["tokenBot"])
