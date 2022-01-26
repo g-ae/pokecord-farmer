@@ -1,30 +1,29 @@
 const config = require("./config.json")
+const {spawn} = require('child_process')
 const fs = require("fs")
 
 // doesn't work
 module.exports = {
-    send(pokemonName) {
+    async send(message, pokemonName) {
         /* messagecontent.json
         {
             "content": "",
-            "autorization": "",
             "url": ""
         }
         */
-        // non fonctionnel
-        var child_process = require('child_process');
-        child_process.exec('py sendMessage.py', function (err){
-            if (err) {
-                console.log("child processes failed with error code: " + err.code);
-            }
-        });
 
-        const url = `https://discord.com/api/v8/channels/${config["channelId"]}/messages`
+        // json file write
+        const url = `https://discord.com/api/v8/channels/${message.channel.id}/messages`
         const towrite = {
             content: `${config["botPrefix"]}catch ${pokemonName}`,
-            autorization: `Authorization: ${config["tokenUser"]}`,
             url: url
         }
         fs.writeFileSync('./messagecontent.json', JSON.stringify(towrite))
+
+        // python file
+        const python = spawn('py', ['./sendMessage.py'])
+        python.on('close', (code) => {
+            console.log(`child process close all stdio with code ${code}`)
+        })
     }
 }

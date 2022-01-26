@@ -7,8 +7,7 @@ const client = new Discord.Client({
     intents: [
         Discord.Intents.FLAGS.GUILDS, 
         Discord.Intents.FLAGS.GUILD_MEMBERS, 
-        Discord.Intents.FLAGS.GUILD_MESSAGES,
-        Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+        Discord.Intents.FLAGS.GUILD_MESSAGES
     ]
 })
 
@@ -22,19 +21,18 @@ client.on('messageCreate', (message) => {
     try {
         const sentEmbed = message.embeds[0]
 
-        //if (sentEmbed.title.includes('Wild') || sentEmbed.title.includes('wild')) {
+        if (sentEmbed.title.includes('Wild') || sentEmbed.title.includes('wild')) {
             // wild pokemon appeared
             const imageUrl = sentEmbed.image.url.substring(36)
             const pokemonId = imageUrl.substring(0, imageUrl.length - 4)
             
             Pokemon.getPokemon(pokemonId).then(r => {
-                send(r.name)
+                send(message, r.name)
             })
-        /*} else {
+        } else {
             console.log('no wild pokemon')
-        }*/
+        }
     } catch(err) {
-        console.log('error ?')
         throw(err)
     }
 })
