@@ -33,7 +33,7 @@ client.on('messageCreate', (message) => {
             console.log('no wild pokemon')
         }
     } catch(err) {
-        throw(err)
+        console.log("erreur\n" + err)
     }
 })
 

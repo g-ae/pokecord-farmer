@@ -14,5 +14,6 @@ if (__name__ == "__main__"):
             }
             
             requests.post(messagecontent["url"], data={'content': messagecontent["content"]}, headers=headers)
+            exit(0)
 else:
     exit(1)

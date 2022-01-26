@@ -23,7 +23,8 @@ module.exports = {
         // python file
         const python = spawn('py', ['./sendMessage.py'])
         python.on('close', (code) => {
-            console.log(`child process close all stdio with code ${code}`)
+            if (code == 0) console.log(`catched ${pokemonName}`)
+            else console.log(`python script execution error, exited with code ${code}`)
         })
     }
 }
