@@ -11,9 +11,13 @@
   * botPrefix
 * Install all needed dependencies
 ```bash
-    npm i
+  npm i
+```
+* Install python's dependencies
+```bash
+  py -m pip install -r requirements.txt
 ```
 * Execute the bot
 ```bash
-    node bot.js
+  node bot.js
 ```
